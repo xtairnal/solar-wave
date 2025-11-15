@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Имитированная навигация по курсам</title>
+
+  <style>
+    :root {
+      --bg: #000;
+      --fg: #e6e6e6;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      height: 100%;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .catalog { list-style: none; margin: 0; padding: 0; }
+
+    .category { border-bottom: 1px solid rgba(255,255,255,.1); }
+    .category-header {
+      display: flex;
+      align-items: center;
+      padding: 12px 8px;
+      font-size: 20px;
+      font-weight: 600;
+      cursor: pointer; /* можно нажать по тексту/области заголовка */
+      user-select: none;
+    }
+    .category-header .chev {
+      width: 20px;
+      display: inline-block;
+      transform: rotate(-90deg);
+      transition: transform .2s ease;
+      color: #ddd;
+      margin-right: 6px;
+    }
+    .cat-title { color: #eaeaea; }
+
+    .sublist {
+      list-style: none;
+      margin: 0;
+      padding: 0 8px 8px 28px;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height .25s ease;
+    }
+    .sublist li { padding: 8px 0; }
+    .sublist a { color: #f0f0f0; text-decoration: none; }
+    .sublist a:hover { text-decoration: underline; }
+
+    .category.open .sublist { max-height: 500px; }
+    .category.open .chev { transform: rotate(0deg); }
+
+    @media (min-width: 800px) {
+      .layout { grid-template-columns: 1fr 0.8fr; }
+    }
+  </style>
+
+  
+</head>
+<body>
+  <!-- Все относительные ссылки будут резолвиться на bulldrop.club -->
+  <base href="https://bulldrop.club/">
+  
+  
+
+
+  <div class="wrap">
+    <div class="layout" aria-label="Навигация по категориям">
+      <ul class="catalog" id="catalog">
+        <!-- Математика: toggle -->
+        <li class="category" id="cat-math">
+          <div class="category-header" aria-expanded="false">
+            <span class="chev">▾</span>
+            <span class="cat-title">Математика</span>
+          </div>
+          <ul class="sublist" aria-hidden="true">
+            <li><a href="algebra.html">Алгебра (основная книга)</a></li>
+            <li><a href="independent.html">Самостоятельные и контрольные работы</a></li>
+          </ul>
+        </li>
+
+        <!-- Геометрия: toggle -->
+        <li class="category" id="cat-geo">
+          <div class="category-header" aria-expanded="false">
+            <span class="chev">▾</span>
+            <span class="cat-title">Геометрия</span>
+          </div>
+          <ul class="sublist" aria-hidden="true">
+            <li><a href="geo-main.html">Геометрия (основная книга)</a></li>
+            <li><a href="geo-exercises.html">Самостоятельные и контрольные работы</a></li>
+            <li><a href="geo-visual.html">Наглядная геометрия</a></li>
+          </ul>
+        </li>
+
+        <!-- Русский: заголовок без ссылки; подпункты - гиперссылки -->
+        <li class="category" id="cat-rus">
+          <div class="category-header" aria-expanded="false">
+            <span class="chev">▾</span>
+            <span class="cat-title">Русский</span>
+          </div>
+          <ul class="sublist" aria-hidden="true">
+            <li><a href="rus-language.html">Русский язык (основная книга)</a></li>
+            <li><a href="rus-literature.html">Русская литература (основная книга)</a></li>
+          </ul>
+        </li>
+
+        <!-- Белорусский: заголовок без ссылки; подпункты - гиперссылки -->
+        <li class="category" id="cat-bel">
+          <div class="category-header" aria-expanded="false">
+            <span class="chev">▾</span>
+            <span class="cat-title">Белорусский</span>
+          </div>
+          <ul class="sublist" aria-hidden="true">
+            <li><a href="belarus-language.html">Белорусский язык (основная книга)</a></li>
+            <li><a href="belarus-lit.html">Белорусская литература (основная книга)</a></li>
+          </ul>
+        </li>
+
+        <!-- Английский: toggle -->
+        <li class="category" id="cat-eng">
+          <div class="category-header" aria-expanded="false">
+            <span class="chev">▾</span>
+            <span class="cat-title">Английский</span>
+          </div>
+          <ul class="sublist" aria-hidden="true">
+            <li><a href="eng-main.html">Английский язык (основная книга)</a></li>
+            <li><a href="eng-workbook.html">Воркбук (повышенный уровень)</a></li>
+          </ul>
+        </li>
+
+        <!-- Физика: toggle -->
+        <li class="category" id="cat-phys">
+          <div class="category-header" aria-expanded="false">
+            <span class="chev">▾</span>
+            <span class="cat-title">Физика</span>
+          </div>
+          <ul class="sublist" aria-hidden="true">
+            <li><a href="phys-main.html">Физика (основная книга)</a></li>
+            <li><a href="lab.html">Лабораторные работы</a></li>
+            <li><a href="phys-self.html">Самостоятельные и контрольные работы</a></li>
+            <li><a href="phys-tests.html">Контрольные работы</a></li>
+          </ul>
+        </li>
+
+        <!-- Химия: toggle -->
+        <li class="category" id="cat-chem">
+          <div class="category-header" aria-expanded="false">
+            <span class="chev">▾</span>
+            <span class="cat-title">Химия</span>
+          </div>
+          <ul class="sublist" aria-hidden="true">
+            <li><a href="chem-main.html">Химия (основная книга)</a></li>
+            <li><a href="chem-pract.html">Практические работы</a></li>
+          </ul>
+        </li>
+
+        <!-- История: toggle -->
+        <li class="category" id="cat-hist">
+          <div class="category-header" aria-expanded="false">
+            <span class="chev">▾</span>
+            <span class="cat-title">История</span>
+          </div>
+          <ul class="sublist" aria-hidden="true">
+            <li><a href="hist-world.html">Всемирная история (основная книга)</a></li>
+            <li><a href="hist-kk.html">KK Всемирная История</a></li>
+            <li><a href="hist-belarus.html">История Беларуси (основная книга)</a></li>
+            <li><a href="hist-kk-bel.html">KK История Беларуси</a></li>
+            <li><a href="hist-war.html">ВОВ советского народа (основная книга)</a></li>
+          </ul>
+        </li>
+
+        <!-- Обществоведение: toggle -->
+        <li class="category" id="cat-soc">
+          <div class="category-header" aria-expanded="false">
+            <span class="chev">▾</span>
+            <span class="cat-title">Обществоведение</span>
+          </div>
+          <ul class="sublist" aria-hidden="true">
+            <li><a href="soc-main.html">Обществоведение (основная книга)</a></li>
+          </ul>
+        </li>
+
+        <!-- Информатика: toggle -->
+        <li class="category" id="cat-info">
+          <div class="category-header" aria-expanded="false">
+            <span class="chev">▾</span>
+            <span class="cat-title">Информатика</span>
+          </div>
+          <ul class="sublist" aria-hidden="true">
+            <li><a href="inf-main.html">Информатика (основная книга)</a></li>
+            <li><a href="inf-work.html">Рабочая тетрадь</a></li>
+          </ul>
+        </li>
+
+        <!-- Биология: toggle -->
+        <li class="category" id="cat-bio">
+          <div class="category-header" aria-expanded="false">
+            <span class="chev">▾</span>
+            <span class="cat-title">Биология</span>
+          </div>
+          <ul class="sublist" aria-hidden="true">
+            <li><a href="bio-main.html">Биология (основная книга)</a></li>
+          </ul>
+        </li>
+
+        <!-- География: toggle -->
+        <li class="category" id="cat-geo2">
+          <div class="category-header" aria-expanded="false">
+            <span class="chev">▾</span>
+            <span class="cat-title">География</span>
+          </div>
+          <ul class="sublist" aria-hidden="true">
+            <li><a href="geo-main.html">География (основная книга)</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <script>
+    // Инициализация: подпункты свернуты по умолчанию, кликом по заголовку разворачиваем/сворачиваем
+    (function() {
+      const categories = document.querySelectorAll('.category');
+      categories.forEach(cat => {
+        const header = cat.querySelector('.category-header');
+        const sub = cat.querySelector('.sublist');
+        if (!header || !sub) return;
+
+        // Изначально свернуть
+        sub.style.maxHeight = "0";
+        cat.setAttribute('aria-expanded', "false");
+        const che = cat.querySelector('.chev');
+        if (che) che.style.transform = 'rotate(-90deg)';
+
+        // Разворачивать можно кликом по заголовку (включая текст заголовка)
+        header.addEventListener('click', () => {
+          const isOpen = cat.classList.toggle('open');
+          sub.style.maxHeight = isOpen ? sub.scrollHeight + "px" : "0";
+          cat.setAttribute('aria-expanded', String(isOpen));
+          if (che) che.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(-90deg)';
+        });
+      });
+    })();
+
+
+  </script>
+</body>
+</html>
